@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>График с вводом координат</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+    <div>
+      <label for="coordX">X-координата:</label>
+      <input type="number" id="coordX" name="coordX">
+      <label for="coordY">Y-координата:</label>
+      <input type="number" id="coordY" name="coordY">
+      <button onclick="addData()">Добавить точку</button>
+    </div>
+
+    <script>
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "График",
+              data: [],
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+              borderColor: "rgba(255, 99, 132, 1)",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
+
+      function addData() {
+        var x = document.getElementById("coordX").value;
+        var y = document.getElementById("coordY").value;
+        chart.data.labels.push("");
+        chart.data.datasets[0].data.push({ x: x, y: y });
+        chart.update();
+      }
+    </script>
+  </body>
+</html>
